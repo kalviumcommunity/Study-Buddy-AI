@@ -38,3 +38,32 @@ It uses **Generative AI concepts** such as **Prompting, RAG, Embeddings, Vector 
   "Summary": "Improves accuracy with context.",
   "Example": "Like checking Wikipedia before answering."
 }
+
+
+
+## 🎯 Zero-Shot Prompting  
+
+In CodeSage, we apply **Zero-Shot Prompting**, where the AI is asked to perform the task without any prior examples.  
+Instead of showing sample inputs/outputs, the AI directly relies on the instructions to understand the task.  
+This makes the system **flexible, adaptive, and language-agnostic**.  
+
+### 🔹 Zero-Shot Prompt  
+
+**System Prompt:**  
+You are an AI code reviewer. Analyze the given code, detect bugs, and suggest improvements.  
+Always return results in JSON format with three fields: `issues`, `suggestions`, and `overall_feedback`.  
+
+**User Prompt:**  
+Review the following JavaScript code and provide structured feedback:  
+
+```javascript
+function multiply(a, b) {
+    return a + b; // intended to be multiplication
+}
+````
+
+### 📌 Why Zero-Shot Prompting?
+
+* The AI is not given examples — only task-specific instructions.
+* It can generalize across **multiple programming languages** and scenarios.
+* Ensures **scalable code reviews** without needing predefined cases.
