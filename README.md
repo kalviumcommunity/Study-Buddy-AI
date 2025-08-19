@@ -67,3 +67,48 @@ function multiply(a, b) {
 * The AI is not given examples — only task-specific instructions.
 * It can generalize across **multiple programming languages** and scenarios.
 * Ensures **scalable code reviews** without needing predefined cases.
+
+
+
+## 🎯 One-Shot Prompting  
+
+In CodeSage, we use **One-Shot Prompting**, where the AI is given a **single example** before performing the task.  
+This helps guide the model with a reference while still keeping it generalizable.  
+
+### 🔹 One-Shot Prompt  
+
+**System Prompt:**  
+You are an AI code reviewer. Analyze the given code, detect bugs, and suggest improvements.  
+Always return results in JSON format with three fields: `issues`, `suggestions`, and `overall_feedback`.  
+
+**User Prompt (with one example):**  
+
+Example Input (Python):  
+```python
+def divide(a, b):
+    return a * b  # intended to be division
+````
+
+Example Expected Output (JSON):
+
+```json
+{
+  "issues": ["The operator used is multiplication instead of division."],
+  "suggestions": ["Replace '*' with '/' to correctly divide the numbers."],
+  "overall_feedback": "Logic error detected in the function implementation."
+}
+```
+
+Now review the following Java code:
+
+```java
+public int subtract(int a, int b) {
+    return a + b; // intended to be subtraction
+}
+```
+
+### 📌 Why One-Shot Prompting?
+
+* Provides **one guiding example** to set the response pattern.
+* Ensures the AI generates **consistent, structured outputs**.
+* Reduces ambiguity compared to zero-shot prompting.
