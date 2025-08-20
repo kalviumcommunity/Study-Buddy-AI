@@ -153,9 +153,6 @@ User Prompt:
 Explain “ChromaDB” in simple terms.
 
 📌 Why Multi-Shot Prompting?
-
 Ensures consistent structured answers.
-
 Useful for complex topics.
-
 Helps AI follow the same teaching pattern.
