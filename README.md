@@ -39,160 +39,123 @@ It uses **Generative AI concepts** such as **Prompting, RAG, Embeddings, Vector 
   "Example": "Like checking Wikipedia before answering."
 }
 
+## 🔹 System and User Prompts
 
-## System and User Prompts
-To implement CodeSage, we define clear prompts for the AI, ensuring consistent and accurate reviews.
-These prompts are designed using the RTFC Framework.
+**System Prompt**  
+You are an AI Study Assistant. Your role is to answer student questions based on their notes. Always return results in JSON format containing:  
+- **Answer**: Detailed response to the question.  
+- **Summary**: A short and simple explanation.  
+- **Example**: A relatable example for better understanding.  
 
-🔹 System Prompt
-You are an AI Code Reviewer. Your role is to analyze the given code, identify bugs, suggest improvements, and provide structured feedback. Always return results in a JSON format containing:
+**User Prompt**  
+Explain the following concept in simple terms:  
+*“What is Retrieval-Augmented Generation (RAG)?”*  
 
-issues: List of detected bugs or problems
-suggestions: Recommended improvements
-overall_feedback: Summary of code quality
-🔹 User Prompt
-Review the following Python code and provide feedback as per the defined schema:
+---
 
-def add_numbers(a, b):
-    return a - b  # intended to be addition
-📌 RTFC Framework Usage
-R (Role): Defined in the system prompt as a code reviewer.
-T (Task): Analyze code, detect bugs, and suggest improvements.
-F (Format): Responses must follow a structured JSON output.
-C (Context): The provided code snippet and programming language.
+## 📌 RTFC Framework Usage  
 
+- **R (Role):** Defined in the system prompt as a study assistant.  
+- **T (Task):** Explain concepts in detail, with summary and example.  
+- **F (Format):** JSON with fields (Answer, Summary, Example).  
+- **C (Context):** User-provided study notes or query.  
 
+---
 
 ## 🎯 Zero-Shot Prompting  
 
-In CodeSage, we apply **Zero-Shot Prompting**, where the AI is asked to perform the task without any prior examples.  
-Instead of showing sample inputs/outputs, the AI directly relies on the instructions to understand the task.  
-This makes the system **flexible, adaptive, and language-agnostic**.  
-
-### 🔹 Zero-Shot Prompt  
+In **Zero-Shot Prompting**, the AI answers without prior examples, relying only on instructions.  
 
 **System Prompt:**  
-You are an AI code reviewer. Analyze the given code, detect bugs, and suggest improvements.  
-Always return results in JSON format with three fields: `issues`, `suggestions`, and `overall_feedback`.  
+You are an AI Study Assistant. Answer student queries clearly and return results in JSON with fields Answer, Summary, and Example.  
 
 **User Prompt:**  
-Review the following JavaScript code and provide structured feedback:  
+Explain *“Cosine Similarity”* in simple terms.  
 
-```javascript
-function multiply(a, b) {
-    return a + b; // intended to be multiplication
-}
-````
-
-### 📌 Why Zero-Shot Prompting?
-
-* The AI is not given examples — only task-specific instructions.
-* It can generalize across **multiple programming languages** and scenarios.
-* Ensures **scalable code reviews** without needing predefined cases.
-
-
-
-## 🎯 One-Shot Prompting  
-
-In CodeSage, we use **One-Shot Prompting**, where the AI is given a **single example** before performing the task.  
-This helps guide the model with a reference while still keeping it generalizable.  
-
-### 🔹 One-Shot Prompt  
-
-**System Prompt:**  
-You are an AI code reviewer. Analyze the given code, detect bugs, and suggest improvements.  
-Always return results in JSON format with three fields: `issues`, `suggestions`, and `overall_feedback`.  
-
-**User Prompt (with one example):**  
-
-Example Input (Python):  
-```python
-def divide(a, b):
-    return a * b  # intended to be division
-````
-
-Example Expected Output (JSON):
-
+**AI Output Example:**  
 ```json
 {
-  "issues": ["The operator used is multiplication instead of division."],
-  "suggestions": ["Replace '*' with '/' to correctly divide the numbers."],
-  "overall_feedback": "Logic error detected in the function implementation."
+  "Answer": "Cosine similarity measures how similar two vectors are by comparing their angle.",
+  "Summary": "It checks closeness of text meanings.",
+  "Example": "Like comparing two essays to see if they talk about the same topic."
 }
-```
+📌 Why Zero-Shot Prompting?
 
-Now review the following Java code:
+Works without training examples.
 
-```java
-public int subtract(int a, int b) {
-    return a + b; // intended to be subtraction
-}
-```
+Flexible for any subject or concept.
 
-### 📌 Why One-Shot Prompting?
+Saves time while keeping answers structured.
 
-* Provides **one guiding example** to set the response pattern.
-* Ensures the AI generates **consistent, structured outputs**.
-* Reduces ambiguity compared to zero-shot prompting.
+🎯 One-Shot Prompting
+In One-Shot Prompting, we provide one example to guide the AI’s style.
 
+System Prompt:
+You are an AI Study Assistant. Always return results in JSON with Answer, Summary, and Example.
 
-## 🎯 Multi-Shot Prompting  
+Example Input:
+Explain “Embeddings” in simple terms.
 
-In CodeSage, we apply **Multi-Shot Prompting**, where the AI is provided with **multiple examples** before being asked to solve the real task.  
-This method ensures the AI clearly understands the **pattern, structure, and expectations** of the output.  
+Example Output:
 
-### 🔹 Multi-Shot Prompt  
-
-**System Prompt:**  
-You are an AI code reviewer. Analyze the given code, detect bugs, and suggest improvements.  
-Always return results in JSON format with three fields: `issues`, `suggestions`, and `overall_feedback`.  
-
-**User Prompt (with multiple examples):**  
-
-Example 1 (Python):  
-```python
-def add(a, b):
-    return a - b  # intended to be addition
-````
-
-Expected Output:
-
-```json
+json
+Copy
+Edit
 {
-  "issues": ["The operator used is subtraction instead of addition."],
-  "suggestions": ["Replace '-' with '+' to correctly add the numbers."],
-  "overall_feedback": "Logic error detected in the addition function."
+  "Answer": "Embeddings convert text into numbers so that similar texts are close in space.",
+  "Summary": "Turns words into numbers for comparison.",
+  "Example": "Like mapping similar books near each other in a library."
 }
-```
+User Prompt:
+Explain “Vector Database” in simple terms.
 
-Example 2 (JavaScript):
+📌 Why One-Shot Prompting?
 
-```javascript
-function square(n) {
-    return n + n; // intended to be square
-}
-```
+Gives AI a reference style.
 
-Expected Output:
+Reduces ambiguity.
 
-```json
+Ensures answers match learning-friendly format.
+
+🎯 Multi-Shot Prompting
+In Multi-Shot Prompting, we provide multiple examples before asking the real question.
+
+System Prompt:
+You are an AI Study Assistant. Return answers in JSON with Answer, Summary, and Example.
+
+Example 1 Input:
+What is “RAG”?
+
+Example 1 Output:
+
+json
+Copy
+Edit
 {
-  "issues": ["The function doubles the number instead of squaring it."],
-  "suggestions": ["Replace 'n + n' with 'n * n' to correctly square the number."],
-  "overall_feedback": "Incorrect mathematical operation for squaring."
+  "Answer": "RAG combines AI with external notes to improve accuracy.",
+  "Summary": "AI + Notes = Better answers.",
+  "Example": "Like checking a textbook before answering a question."
 }
-```
+Example 2 Input:
+What is “Cosine Similarity”?
 
-Now review the following C++ code:
+Example 2 Output:
 
-```cpp
-int multiply(int a, int b) {
-    return a - b; // intended to be multiplication
+json
+Copy
+Edit
+{
+  "Answer": "It measures similarity between texts by checking their vector angle.",
+  "Summary": "Compares text closeness.",
+  "Example": "Like checking if two essays talk about the same topic."
 }
-```
+User Prompt:
+Explain “ChromaDB” in simple terms.
 
-### 📌 Why Multi-Shot Prompting?
+📌 Why Multi-Shot Prompting?
 
-* Gives the AI **multiple reference patterns** to ensure consistent results.
-* Helps in **complex tasks** where one example isn’t enough.
-* Reduces errors and improves **accuracy of code reviews**.
+Ensures consistent structured answers.
+
+Useful for complex topics.
+
+Helps AI follow the same teaching pattern.
