@@ -112,3 +112,65 @@ public int subtract(int a, int b) {
 * Provides **one guiding example** to set the response pattern.
 * Ensures the AI generates **consistent, structured outputs**.
 * Reduces ambiguity compared to zero-shot prompting.
+
+
+## 🎯 Multi-Shot Prompting  
+
+In CodeSage, we apply **Multi-Shot Prompting**, where the AI is provided with **multiple examples** before being asked to solve the real task.  
+This method ensures the AI clearly understands the **pattern, structure, and expectations** of the output.  
+
+### 🔹 Multi-Shot Prompt  
+
+**System Prompt:**  
+You are an AI code reviewer. Analyze the given code, detect bugs, and suggest improvements.  
+Always return results in JSON format with three fields: `issues`, `suggestions`, and `overall_feedback`.  
+
+**User Prompt (with multiple examples):**  
+
+Example 1 (Python):  
+```python
+def add(a, b):
+    return a - b  # intended to be addition
+````
+
+Expected Output:
+
+```json
+{
+  "issues": ["The operator used is subtraction instead of addition."],
+  "suggestions": ["Replace '-' with '+' to correctly add the numbers."],
+  "overall_feedback": "Logic error detected in the addition function."
+}
+```
+
+Example 2 (JavaScript):
+
+```javascript
+function square(n) {
+    return n + n; // intended to be square
+}
+```
+
+Expected Output:
+
+```json
+{
+  "issues": ["The function doubles the number instead of squaring it."],
+  "suggestions": ["Replace 'n + n' with 'n * n' to correctly square the number."],
+  "overall_feedback": "Incorrect mathematical operation for squaring."
+}
+```
+
+Now review the following C++ code:
+
+```cpp
+int multiply(int a, int b) {
+    return a - b; // intended to be multiplication
+}
+```
+
+### 📌 Why Multi-Shot Prompting?
+
+* Gives the AI **multiple reference patterns** to ensure consistent results.
+* Helps in **complex tasks** where one example isn’t enough.
+* Reduces errors and improves **accuracy of code reviews**.
