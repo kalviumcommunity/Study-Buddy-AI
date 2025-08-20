@@ -153,9 +153,53 @@ User Prompt:
 Explain “ChromaDB” in simple terms.
 
 📌 Why Multi-Shot Prompting?
-
 Ensures consistent structured answers.
-
 Useful for complex topics.
-
 Helps AI follow the same teaching pattern.
+
+
+## 🎯 Dynamic Prompting  
+
+In **Study Buddy AI**, we use **Dynamic Prompting**, where the system **adapts prompts automatically** based on the user’s query or notes (e.g., subject, difficulty level, or preferred explanation style).  
+This makes answers **personalized and flexible**, rather than relying only on fixed instructions.  
+
+---
+
+### 🔹 Dynamic Prompt Example  
+
+**System Prompt (Template):**  
+You are an AI Study Assistant. Explain the following concept in {{subject}} clearly.  
+Adapt your explanation based on {{difficulty_level}} and return results in JSON format with fields: Answer, Summary, and Example.  
+
+**User Prompt (Generated Dynamically):**  
+Explain the following {{subject}} concept for a {{difficulty_level}} learner:  
+
+{{concept}}  
+
+---
+
+### 📌 Example Execution  
+
+If the user provides:  
+
+- **Subject:** Mathematics  
+- **Difficulty Level:** Beginner  
+- **Concept:** Pythagoras Theorem  
+
+The dynamically generated prompt becomes:  
+
+**System Prompt:**  
+You are an AI Study Assistant. Explain the following concept in Mathematics clearly.  
+Adapt your explanation for a Beginner and return results in JSON format with fields: Answer, Summary, and Example.  
+
+**User Prompt:**  
+Explain the following Mathematics concept for a Beginner:  
+Pythagoras Theorem  
+
+**Expected Output:**  
+```json
+{
+  "Answer": "The Pythagoras Theorem says that in a right-angled triangle, the square of the longest side (hypotenuse) equals the sum of the squares of the other two sides.",
+  "Summary": "In a right triangle: hypotenuse² = base² + height².",
+  "Example": "If one side is 3 and the other is 4, then the hypotenuse will be 5."
+}
