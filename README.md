@@ -203,3 +203,55 @@ Pythagoras Theorem
   "Summary": "In a right triangle: hypotenuse² = base² + height².",
   "Example": "If one side is 3 and the other is 4, then the hypotenuse will be 5."
 }
+
+
+
+## Chain-of-Thought Prompting in Study Buddy AI
+
+In Study Buddy AI, we use Chain-of-Thought (CoT) Prompting, where the AI is guided to reason step by step internally before giving the final answer.
+
+This helps the AI give accurate, well-explained, and student-friendly answers, rather than just short responses.
+
+🔹 How it Works
+
+System Prompt tells the AI to think step by step internally.
+
+The AI uses hidden reasoning (not shown to the user).
+
+The final answer is given in a structured JSON format → { Answer, Summary, Example }.
+
+🔹 Example in Study Buddy AI
+
+System Prompt:
+You are an AI Study Assistant. Think step by step to explain the concept, but only show the final answer in JSON with fields: Answer, Summary, Example.
+
+User Prompt:
+Explain “Photosynthesis” in simple terms.
+
+Hidden Reasoning (not shown to user):
+
+Photosynthesis happens in plants.
+
+Plants use sunlight, carbon dioxide, and water.
+
+They produce glucose and oxygen.
+
+Simplify for students.
+
+Final Output (shown to user):
+
+{
+  "Answer": "Photosynthesis is the process where plants use sunlight, carbon dioxide, and water to make food (glucose) and release oxygen.",
+  "Summary": "Plants make food using sunlight and give out oxygen.",
+  "Example": "Like how a solar panel converts sunlight to energy, plants convert sunlight to food."
+}
+
+📌 Why Chain-of-Thought Prompting in Study Buddy AI?
+
+. Deeper reasoning → AI avoids shallow or wrong answers.
+
+. Accurate explanations → Useful for tricky or complex concepts.
+
+. Student-friendly → Step-by-step reasoning ensures clarity in the final simplified answer.
+
+. Consistency → Always returns structured { Answer, Summary, Example }.
