@@ -129,3 +129,52 @@ for test in dataset:
     ai_output = run_model(test["question"])
     verdict = judge(ai_output, test["expected"])
     print(f"Test {test['id']}: {verdict}")
+
+
+
+Function Calling in Study Buddy AI
+
+Function calling allows the AI to go beyond plain text answers by invoking backend functions when needed.
+This makes answers more accurate, interactive, and practical.
+
+📌 How It Works
+
+User asks a question (e.g., “What is 12 × 15?”).
+
+AI detects it’s a calculation query.
+
+Instead of guessing, it calls a math function from the backend.
+
+Returns structured JSON with correct results.
+
+✨ Use Cases in Study Buddy AI
+
+🧮 Math & Calculations → Algebra, arithmetic, unit conversions.
+
+📊 Data Lookups → Fetch definitions, dates, formulas from stored notes.
+
+📅 Utilities → Study planner (dates, reminders).
+
+🔍 Knowledge Retrieval → Calls RAG pipeline for relevant context.
+
+✅ Example
+
+👩‍🎓 User Prompt:
+"What is the square root of 144?"
+
+⚡ AI Function Call:
+
+{
+  "function": "math.sqrt",
+  "arguments": {"value": 144}
+}
+
+
+📘 AI Output:
+
+{
+  "Answer": "The square root of 144 is 12.",
+  "Summary": "It is a perfect square.",
+  "Example": "Like how 12 × 12 = 144."
+}
+ 
