@@ -206,7 +206,7 @@ Pythagoras Theorem
 
 
 
-## Chain-of-Thought Prompting in Study Buddy AI
+## Chain-of-Thought Prompting 
 
 In Study Buddy AI, we use Chain-of-Thought (CoT) Prompting, where the AI is guided to reason step by step internally before giving the final answer.
 
@@ -255,3 +255,76 @@ Final Output (shown to user):
 . Student-friendly → Step-by-step reasoning ensures clarity in the final simplified answer.
 
 . Consistency → Always returns structured { Answer, Summary, Example }.
+
+
+Evaluation Dataset & Testing Framework – Study Buddy AI
+
+To ensure Study Buddy AI gives reliable and accurate answers, we designed an evaluation pipeline with:
+
+📚 A dataset of Q&A samples from different subjects.
+
+🧑‍⚖️ A judge prompt to compare AI’s answer with the expected result.
+
+⚙️ A lightweight testing framework to run all evaluation cases.
+
+📂 Evaluation Dataset (5 Samples)
+[
+  {
+    "id": 1,
+    "subject": "Math",
+    "question": "What is 2+2?",
+    "expected": "Answer: 4"
+  },
+  {
+    "id": 2,
+    "subject": "Physics",
+    "question": "State Newton's First Law of Motion.",
+    "expected": "An object stays at rest or in motion unless acted upon by an external force."
+  },
+  {
+    "id": 3,
+    "subject": "Biology",
+    "question": "What is the powerhouse of the cell?",
+    "expected": "Mitochondria"
+  },
+  {
+    "id": 4,
+    "subject": "History",
+    "question": "Who was the first President of the USA?",
+    "expected": "George Washington"
+  },
+  {
+    "id": 5,
+    "subject": "Computer Science",
+    "question": "What does RAG stand for in AI?",
+    "expected": "Retrieval-Augmented Generation"
+  }
+]
+
+🧑‍⚖️ Judge Prompt
+You are a judge. Compare the model's output with the expected result.  
+
+Evaluation Parameters:  
+1. Correctness – Did the model give the right answer?  
+2. Completeness – Did it fully address the question?  
+3. Clarity – Is the answer easy to understand for a student?  
+4. Format – Is the response in the required structure (Answer, Summary, Example)?  
+
+Return: Pass / Fail with a short justification.  
+
+⚙️ Testing Framework Setup
+
+We built a simple test runner that:
+
+Iterates through all dataset samples.
+
+Sends each question to the AI model.
+
+Captures the AI’s output and compares with expected using the judge prompt.
+
+Logs results as ✅ Pass / ❌ Fail with explanations.
+
+for test in dataset:
+    ai_output = run_model(test["question"])
+    verdict = judge(ai_output, test["expected"])
+    print(f"Test {test['id']}: {verdict}")
