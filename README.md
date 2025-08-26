@@ -1,105 +1,100 @@
-Study Buddy AI – Q&A App
+Study Buddy AI – MERN Based Q&A App
 🚀 Overview
 
-Study Buddy AI is an AI-powered Q&A app that helps students learn from their notes.
-It uses Generative AI techniques like Prompt Engineering, RAG, Embeddings, Vector Databases, and Similarity Search to deliver clear, structured, and student-friendly answers.
+Study Buddy AI is an AI-powered Q&A app that helps students learn directly from their own notes.
+It combines Generative AI + MERN stack + MongoDB Vector Search to deliver accurate, structured, and student-friendly answers.
+
+Unlike generic AI tools, Study Buddy AI grounds every answer in student-provided notes, ensuring personalized learning.
 
 ✨ Key Features
+🔹 AI Capabilities
 
 Prompt Engineering → Zero-Shot, One-Shot, Multi-Shot, Dynamic, Chain-of-Thought.
 
 RAG (Retrieval-Augmented Generation) → Retrieves relevant notes before answering.
 
-Embeddings + Vector DB → Stores notes in ChromaDB for similarity search.
+Embeddings + MongoDB Vector Search → Stores notes as embeddings and retrieves via similarity search.
 
-Similarity Functions → Cosine, Euclidean (L2), Dot Product.
+Similarity Functions → Cosine, Dot Product.
 
-Structured Output → JSON answers → { Answer, Summary, Example }.
+Structured JSON Output → Always returns in format:
 
-Function Calling → Handles math & calculation queries.
+{ "Answer": "...", "Summary": "...", "Example": "..." }
 
-Evaluation Pipeline → Dataset + Judge Prompt + Testing Framework.
 
-LLM Parameters → Temperature, Top P, Top K, Stop Sequences.
+Function Calling → Handles math, calculations, and data lookups automatically.
+
+🔹 Evaluation Pipeline
+
+Dataset of sample Q&As.
+
+Judge Prompt → Compares AI output vs. expected answers.
+
+Evaluation Parameters → Correctness, Completeness, Clarity, Format.
+
+Testing Framework → Automated pass/fail logging.
+
+🔹 Configurable LLM Parameters
+
+Temperature – Creativity of response.
+
+Top P, Top K – Sampling control.
+
+Stop Sequences – Restrict unwanted outputs.
 
 ⚙️ Tech Stack
+🖥️ Frontend
 
-Backend → Python (FastAPI / Flask)
+React + Tailwind → Clean, responsive UI for asking questions & displaying answers.
 
-LLM → OpenAI GPT / HuggingFace
+⚡ Backend
 
-Vector DB → ChromaDB
+Node.js + Express → API layer connecting frontend, database, and AI models.
 
-Embeddings → SentenceTransformers
+🗄️ Database
 
-Evaluation → Python scripts with Judge Prompt
+MongoDB with Vector Search → Stores notes + embeddings, enables semantic search.
+
+🤖 AI Models
+
+Embeddings → OpenAI / HuggingFace SentenceTransformers.
+
+LLM → OpenAI GPT / HuggingFace models.
+
+🧪 Evaluation
+
+Custom Judge Prompts + automated Test Runner.
 
 🧪 Example Run
 
 👩‍🎓 User Prompt:
-“Explain RAG in simple terms.”
 
-📘 AI Output:
+“Explain Newton’s First Law in simple terms.”
+
+📘 AI Output (JSON):
 
 {
-  "Answer": "RAG lets AI fetch external knowledge to improve answers.",
-  "Summary": "Improves accuracy with context.",
-  "Example": "Like checking Wikipedia before answering."
+  "Answer": "Newton’s First Law says objects stay at rest or keep moving unless an external force acts.",
+  "Summary": "Objects resist changes in motion.",
+  "Example": "A ball keeps rolling until friction or someone stops it."
 }
 
 🎯 Prompting Techniques
-🔹 System Prompt
 
-You are an AI Study Assistant. Always return results in JSON with fields: Answer, Summary, Example.
+Zero-Shot → Answer with no examples (flexible, fast).
 
-🔹 User Prompt
+One-Shot → One guiding example ensures clarity.
 
-Explain the following concept in simple terms:
-“What is Retrieval-Augmented Generation (RAG)?”
+Multi-Shot → Multiple examples for consistent style.
 
-📌 Zero-Shot Prompting
+Dynamic Prompting → Adjusts based on subject/difficulty.
 
-AI answers without examples.
+Chain-of-Thought → AI reasons step-by-step before answering.
 
-Flexible for any subject.
+🧑‍⚖️ Evaluation Pipeline
 
-Saves time, keeps structured output.
+📂 Dataset (Sample Q&As):
 
-📌 One-Shot Prompting
-
-One example guides AI’s style & structure.
-
-Reduces ambiguity.
-
-Ensures learning-friendly answers.
-
-📌 Multi-Shot Prompting
-
-Multiple examples provided.
-
-Useful for complex concepts.
-
-Ensures consistent style.
-
-📌 Dynamic Prompting
-
-Prompts adapt automatically based on subject, difficulty, or style.
-
-Example: Beginner-friendly vs. Advanced explanations.
-
-📌 Chain-of-Thought Prompting
-
-AI reasons step by step internally before answering.
-
-Produces accurate, simplified explanations.
-
-Always returns structured JSON.
-
-🧪 Evaluation Dataset & Testing Framework
-
-To ensure accuracy & reliability, we use an evaluation pipeline:
-
-📂 Dataset (Sample Q&As)
 [
   {"id": 1, "subject": "Math", "question": "What is 2+2?", "expected": "Answer: 4"},
   {"id": 2, "subject": "Physics", "question": "State Newton's First Law of Motion.", "expected": "An object stays at rest or in motion unless acted upon by an external force."},
@@ -108,66 +103,33 @@ To ensure accuracy & reliability, we use an evaluation pipeline:
   {"id": 5, "subject": "Computer Science", "question": "What does RAG stand for in AI?", "expected": "Retrieval-Augmented Generation"}
 ]
 
-🧑‍⚖️ Judge Prompt
 
-You are a judge. Compare the model’s output with the expected result.
+⚖️ Judge Prompt:
 
-Evaluation Parameters:
+Compare AI output with expected.
 
-✅ Correctness – Is the answer right?
+Check Correctness, Completeness, Clarity, Format.
 
-✅ Completeness – Does it fully address the question?
+Return → Pass/Fail + Justification.
 
-✅ Clarity – Is it student-friendly?
-
-✅ Format – JSON → { Answer, Summary, Example }.
-
-Return: Pass / Fail + Justification
-
-⚙️ Testing Framework
-for test in dataset:
-    ai_output = run_model(test["question"])
-    verdict = judge(ai_output, test["expected"])
-    print(f"Test {test['id']}: {verdict}")
-
-
-
-Function Calling in Study Buddy AI
-
-Function calling allows the AI to go beyond plain text answers by invoking backend functions when needed.
-This makes answers more accurate, interactive, and practical.
-
+🔢 Function Calling in Study Buddy AI
 📌 How It Works
 
-User asks a question (e.g., “What is 12 × 15?”).
+User asks → “What is 12 × 15?”
 
-AI detects it’s a calculation query.
+AI detects calculation query.
 
-Instead of guessing, it calls a math function from the backend.
+Calls backend math function.
 
-Returns structured JSON with correct results.
-
-✨ Use Cases in Study Buddy AI
-
-🧮 Math & Calculations → Algebra, arithmetic, unit conversions.
-
-📊 Data Lookups → Fetch definitions, dates, formulas from stored notes.
-
-📅 Utilities → Study planner (dates, reminders).
-
-🔍 Knowledge Retrieval → Calls RAG pipeline for relevant context.
+Returns structured JSON with correct result.
 
 ✅ Example
 
-👩‍🎓 User Prompt:
-"What is the square root of 144?"
+👩‍🎓 User Prompt: “What is the square root of 144?”
 
 ⚡ AI Function Call:
 
-{
-  "function": "math.sqrt",
-  "arguments": {"value": 144}
-}
+{ "function": "math.sqrt", "arguments": {"value": 144} }
 
 
 📘 AI Output:
@@ -177,4 +139,3 @@ Returns structured JSON with correct results.
   "Summary": "It is a perfect square.",
   "Example": "Like how 12 × 12 = 144."
 }
- 
