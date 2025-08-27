@@ -1,23 +1,32 @@
 const express = require('express');
 const router = express.Router();
 const Note = require('../models/Note');
+const authMiddleware = require('../middleware/authMiddleware');
+const { OpenAI } = require('openai');
 
-// Upload notes
-router.post('/', async (req, res) => {
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+// Upload notes (protected)
+router.post('/', authMiddleware, async (req, res) => {
     try {
-        const { userId, title, content } = req.body;
-        // TODO: Generate embedding for content
-        const embedding = []; // Placeholder
+        const { title, content } = req.body;
+        const userId = req.user.id;
+        // Generate embedding using OpenAI
+        const embeddingResponse = await openai.embeddings.create({
+            model: 'text-embedding-ada-002',
+            input: content
+        });
+        const embedding = embeddingResponse.data[0].embedding;
         const note = new Note({ userId, title, content, embedding });
         await note.save();
         res.status(201).json(note);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to upload note' });
+        res.status(500).json({ error: 'Failed to upload note', details: err.message });
     }
 });
 
-// Ask question
-router.post('/question', async (req, res) => {
+// Ask question (protected)
+router.post('/question', authMiddleware, async (req, res) => {
     try {
         const { question } = req.body;
         // TODO: Retrieve relevant notes using embeddings + vector search
