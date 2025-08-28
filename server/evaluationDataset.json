@@ -1,0 +1,47 @@
+[
+  {
+    "note": "Newton’s First Law says objects stay at rest or keep moving unless an external force acts.",
+    "question": "Explain Newton’s First Law in simple terms.",
+    "expected": {
+      "Answer": "Newton’s First Law says objects stay at rest or keep moving unless an external force acts.",
+      "Summary": "Objects resist changes in motion.",
+      "Example": "A ball keeps rolling until friction or someone stops it."
+    }
+  },
+  {
+    "note": "Photosynthesis is the process by which plants make food using sunlight.",
+    "question": "What is photosynthesis?",
+    "expected": {
+      "Answer": "Photosynthesis is the process by which plants make food using sunlight.",
+      "Summary": "Plants use sunlight to make food.",
+      "Example": "A tree uses sunlight to produce its own food."
+    }
+  },
+  {
+    "note": "The mitochondria is the powerhouse of the cell.",
+    "question": "What is the function of mitochondria?",
+    "expected": {
+      "Answer": "The mitochondria is the powerhouse of the cell.",
+      "Summary": "Mitochondria produce energy for the cell.",
+      "Example": "Muscle cells have many mitochondria to provide energy for movement."
+    }
+  },
+  {
+    "note": "Water boils at 100°C at standard atmospheric pressure.",
+    "question": "At what temperature does water boil?",
+    "expected": {
+      "Answer": "Water boils at 100°C at standard atmospheric pressure.",
+      "Summary": "Boiling point of water is 100°C.",
+      "Example": "Water in a kettle boils at 100°C."
+    }
+  },
+  {
+    "note": "Gravity pulls objects toward the center of the Earth.",
+    "question": "What does gravity do?",
+    "expected": {
+      "Answer": "Gravity pulls objects toward the center of the Earth.",
+      "Summary": "Gravity attracts objects to Earth.",
+      "Example": "An apple falls from a tree because of gravity."
+    }
+  }
+]
